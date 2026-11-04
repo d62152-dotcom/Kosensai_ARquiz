@@ -1,0 +1,250 @@
+@charset "UTF-8";
+
+:root {
+    --ksfn-blue: #3b82f6;        /* クリア画面と同じ爽やかな青 */
+    --ksfn-dark-blue: #1d4ed8;  /* メインの濃い青 */
+    --accent-red: #e11d48;      /* アクセントの赤 */
+    --accent-orange: #f97316;   /* スタートボタンの目立つオレンジ */
+    --text-color: #1e293b;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'M PLUS Rounded 1c', "ヒラギノ角ゴ ProN", "Meiryo", sans-serif;
+    background-color: var(--ksfn-blue);
+    color: var(--text-color);
+    line-height: 1.5;
+}
+
+#All {
+    min-height: 100vh;
+    padding: 16px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* メイン説明カード */
+.quiz-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 440px;
+    border-radius: 24px;
+    padding: 20px 16px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* ヘッダー */
+.quiz-header {
+    margin-bottom: 12px;
+}
+
+.badge {
+    display: inline-block;
+    background: var(--ksfn-dark-blue);
+    color: #ffffff;
+    font-weight: 900;
+    font-size: 12px;
+    padding: 4px 14px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+}
+
+h1 {
+    font-size: 20px;
+    font-weight: 900;
+    margin: 0;
+    color: var(--ksfn-dark-blue);
+    line-height: 1.4;
+}
+
+/* iPhone Safari注意喚起バナー */
+.safari-notice {
+    background-color: #fff1f2;
+    border: 2px solid #f43f5e;
+    border-radius: 14px;
+    padding: 10px 12px;
+    margin-bottom: 14px;
+    text-align: left;
+}
+
+.safari-notice .notice-title {
+    font-size: 13px;
+    font-weight: 900;
+    color: #be123c;
+    margin-bottom: 4px;
+}
+
+.safari-notice p {
+    font-size: 12px;
+    font-weight: 800;
+    color: #881337;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* 遊び方ステップ解説 */
+.manual-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.step-item {
+    display: flex;
+    align-items: center;
+    background-color: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 8px 10px;
+    text-align: left;
+}
+
+.step-num {
+    background-color: var(--ksfn-dark-blue);
+    color: #ffffff;
+    font-weight: 900;
+    font-size: 14px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-right: 10px;
+}
+
+.step-item p {
+    font-size: 13px;
+    font-weight: 800;
+    margin: 0;
+    color: #334155;
+    line-height: 1.3;
+}
+
+.sub-hint {
+    font-size: 11px;
+    color: #2563eb;
+    font-weight: 900;
+}
+
+/* マーカー画像グリッド */
+.marker-section {
+    margin: 12px 0;
+}
+
+.section-title {
+    font-size: 14px;
+    font-weight: 900;
+    color: var(--ksfn-dark-blue);
+    margin-bottom: 6px;
+}
+
+.marker-container {
+    display: flex;
+    justify-content: center;
+}
+
+.marker-table {
+    margin: 0 auto;
+    border-collapse: separate;
+    border-spacing: 6px;
+}
+
+.marker-table td {
+    background: #f1f5f9;
+    border: 2px solid #cbd5e1;
+    border-radius: 12px;
+    padding: 4px;
+    width: 80px;
+    height: 80px;
+    vertical-align: middle;
+}
+
+.marker-table img {
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* 説明テキスト・ご褒美・再チャレンジ */
+.instruction-box p {
+    font-size: 13px;
+    font-weight: 800;
+    margin: 6px 0;
+}
+
+.instruction-box p.retry-p {
+    color: #047857;
+    background-color: #ecfdf5;
+    padding: 6px;
+    border-radius: 10px;
+    border: 1px dashed #10b981;
+}
+
+.instruction-box p.reward-p {
+    color: #b45309;
+    background-color: #fef3c7;
+    padding: 8px;
+    border-radius: 10px;
+    border: 2px dashed #f59e0b;
+}
+
+/* ルビ設定 */
+ruby { ruby-position: over; }
+rt { font-size: 10px; font-weight: 800; color: #475569; }
+
+/* スタートボタン */
+.button-container {
+    margin: 16px 0 8px 0;
+}
+
+.start-btn {
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 900;
+    padding: 10px 36px;
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0 5px 0px #b45309, 0 8px 16px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: all 0.1s ease;
+    width: 85%;
+    max-width: 280px;
+}
+
+.start-btn:active {
+    transform: translateY(3px);
+    box-shadow: 0 2px 0px #b45309, 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* 注意書き */
+.notice-p {
+    font-size: 11px;
+    font-weight: 700;
+    color: #64748b;
+    margin-top: 6px;
+}
+
+/* フッター */
+footer {
+    font-size: 12px;
+    color: #ffffff;
+    margin-top: 14px;
+    text-align: center;
+    font-weight: 700;
+    opacity: 0.9;
+}
