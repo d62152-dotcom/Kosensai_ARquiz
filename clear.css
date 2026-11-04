@@ -1,16 +1,14 @@
 @charset "UTF-8";
 
 :root {
-    --ksfn-blue: #3b82f6;        /* 海洋堂SFなんこくらしい鮮やかな青 */
-    --ksfn-dark-blue: #1d4ed8;  /* 深みのある青 */
-    --accent-red: #e11d48;      /* お祝いの赤 */
-    --accent-yellow: #fef08a;   /* 祝福の黄色 */
+    --ksfn-blue: #3b82f6;
+    --ksfn-dark-blue: #1d4ed8;
+    --accent-red: #e11d48;
+    --accent-yellow: #fef08a;
     --text-color: #1e293b;
 }
 
-*, *::before, *::after {
-    box-sizing: border-box;
-}
+*, *::before, *::after { box-sizing: border-box; }
 
 body {
     margin: 0;
@@ -22,7 +20,6 @@ body {
     overflow-x: hidden;
 }
 
-/* 全体レイアウト */
 #outer {
     min-height: 100vh;
     padding: 20px 12px;
@@ -32,7 +29,6 @@ body {
     justify-content: center;
 }
 
-/* クイズラリー専用のクリアカード */
 .clear-card {
     background: #ffffff;
     width: 100%;
@@ -45,10 +41,7 @@ body {
     z-index: 10;
 }
 
-/* 1. 祝福ヘッダー */
-.clear-header {
-    margin-bottom: 12px;
-}
+.clear-header { margin-bottom: 12px; }
 
 .badge {
     display: inline-block;
@@ -83,12 +76,7 @@ h1 .highlight {
     100% { transform: scale(1.05); }
 }
 
-/* 2. スタンプ表示枠 */
-.stamp-container {
-    margin: 12px 0;
-    display: flex;
-    justify-content: center;
-}
+.stamp-container { margin: 12px 0; display: flex; justify-content: center; }
 
 .stamp-frame {
     background: #f8fafc;
@@ -112,7 +100,6 @@ h1 .highlight {
     100% { transform: scale(1); opacity: 1; }
 }
 
-/* 3. 受付誘導指示 */
 .reception-guide {
     background-color: #fef3c7;
     border: 2px solid #f59e0b;
@@ -121,37 +108,20 @@ h1 .highlight {
     margin-top: 12px;
 }
 
-.guide-text {
-    font-size: 18px;
-    font-weight: 900;
-    color: #b45309;
-    margin: 0;
-    line-height: 1.6;
-}
+.guide-text { font-size: 18px; font-weight: 900; color: #b45309; margin: 0; line-height: 1.6; }
 
 ruby { ruby-position: over; }
 rt { font-size: 11px; font-weight: 800; color: #1e293b; }
 
-.sub-text {
-    font-size: 12px;
-    font-weight: 800;
-    color: #d97706;
-    margin: 4px 0 0 0;
-}
+.sub-text { font-size: 12px; font-weight: 800; color: #d97706; margin: 4px 0 0 0; }
 
-/* 4. Googleフォーム（アンケート）エリア */
 .survey-container {
     margin-top: 16px;
     padding-top: 12px;
     border-top: 2px stroke #e2e8f0;
 }
 
-.survey-title {
-    font-size: 13px;
-    font-weight: 900;
-    color: var(--ksfn-dark-blue);
-    margin: 0 0 8px 0;
-}
+.survey-title { font-size: 13px; font-weight: 900; color: var(--ksfn-dark-blue); margin: 0 0 8px 0; }
 
 .survey-btn {
     display: inline-block;
@@ -173,23 +143,12 @@ rt { font-size: 11px; font-weight: 800; color: #1e293b; }
     box-shadow: 0 1px 0px #047857, 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
-/* フッター */
-footer {
-    font-size: 12px;
-    color: #ffffff;
-    margin-top: 16px;
-    text-align: center;
-    font-weight: 700;
-    opacity: 0.9;
-}
+footer { font-size: 12px; color: #ffffff; margin-top: 16px; text-align: center; font-weight: 700; opacity: 0.9; }
 
-/* 5. お祝い紙吹雪アニメーション */
 .confetti-container {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
     pointer-events: none;
     z-index: 1;
     overflow: hidden;
@@ -197,8 +156,7 @@ footer {
 
 .confetti {
     position: absolute;
-    width: 10px;
-    height: 16px;
+    width: 10px; height: 16px;
     opacity: 0.85;
     top: -20px;
     animation: fall 3.5s linear infinite;
@@ -215,4 +173,3 @@ footer {
     0% { transform: translateY(0) rotate(0deg); opacity: 1; }
     100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
 }
-

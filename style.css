@@ -1,16 +1,14 @@
 @charset "UTF-8";
 
 :root {
-    --ksfn-blue: #3b82f6;        /* クリア画面と同じ爽やかな青 */
-    --ksfn-dark-blue: #1d4ed8;  /* メインの濃い青 */
-    --accent-red: #e11d48;      /* アクセントの赤 */
-    --accent-orange: #f97316;   /* スタートボタンの目立つオレンジ */
+    --ksfn-blue: #3b82f6;
+    --ksfn-dark-blue: #1d4ed8;
+    --accent-red: #e11d48;
+    --accent-orange: #f97316;
     --text-color: #1e293b;
 }
 
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
     margin: 0;
@@ -30,7 +28,6 @@ body {
     justify-content: center;
 }
 
-/* メイン説明カード */
 .quiz-card {
     background: #ffffff;
     width: 100%;
@@ -41,10 +38,7 @@ body {
     text-align: center;
 }
 
-/* ヘッダー */
-.quiz-header {
-    margin-bottom: 12px;
-}
+.quiz-header { margin-bottom: 12px; }
 
 .badge {
     display: inline-block;
@@ -66,7 +60,6 @@ h1 {
     line-height: 1.4;
 }
 
-/* iPhone Safari注意喚起バナー */
 .safari-notice {
     background-color: #fff1f2;
     border: 2px solid #f43f5e;
@@ -91,7 +84,6 @@ h1 {
     line-height: 1.4;
 }
 
-/* 遊び方ステップ解説 */
 .manual-steps {
     display: flex;
     flex-direction: column;
@@ -132,35 +124,13 @@ h1 {
     line-height: 1.3;
 }
 
-.sub-hint {
-    font-size: 11px;
-    color: #2563eb;
-    font-weight: 900;
-}
+.sub-hint { font-size: 11px; color: #2563eb; font-weight: 900; }
 
-/* マーカー画像グリッド */
-.marker-section {
-    margin: 12px 0;
-}
+.marker-section { margin: 12px 0; }
+.section-title { font-size: 14px; font-weight: 900; color: var(--ksfn-dark-blue); margin-bottom: 6px; }
 
-.section-title {
-    font-size: 14px;
-    font-weight: 900;
-    color: var(--ksfn-dark-blue);
-    margin-bottom: 6px;
-}
-
-.marker-container {
-    display: flex;
-    justify-content: center;
-}
-
-.marker-table {
-    margin: 0 auto;
-    border-collapse: separate;
-    border-spacing: 6px;
-}
-
+.marker-container { display: flex; justify-content: center; }
+.marker-table { margin: 0 auto; border-collapse: separate; border-spacing: 6px; }
 .marker-table td {
     background: #f1f5f9;
     border: 2px solid #cbd5e1;
@@ -179,37 +149,14 @@ h1 {
     margin: 0 auto;
 }
 
-/* 説明テキスト・ご褒美・再チャレンジ */
-.instruction-box p {
-    font-size: 13px;
-    font-weight: 800;
-    margin: 6px 0;
-}
+.instruction-box p { font-size: 13px; font-weight: 800; margin: 6px 0; }
+.instruction-box p.retry-p { color: #047857; background-color: #ecfdf5; padding: 6px; border-radius: 10px; border: 1px dashed #10b981; }
+.instruction-box p.reward-p { color: #b45309; background-color: #fef3c7; padding: 8px; border-radius: 10px; border: 2px dashed #f59e0b; }
 
-.instruction-box p.retry-p {
-    color: #047857;
-    background-color: #ecfdf5;
-    padding: 6px;
-    border-radius: 10px;
-    border: 1px dashed #10b981;
-}
-
-.instruction-box p.reward-p {
-    color: #b45309;
-    background-color: #fef3c7;
-    padding: 8px;
-    border-radius: 10px;
-    border: 2px dashed #f59e0b;
-}
-
-/* ルビ設定 */
 ruby { ruby-position: over; }
 rt { font-size: 10px; font-weight: 800; color: #475569; }
 
-/* スタートボタン */
-.button-container {
-    margin: 16px 0 8px 0;
-}
+.button-container { margin: 16px 0 8px 0; }
 
 .start-btn {
     background: linear-gradient(135deg, #f97316, #ea580c);
@@ -231,15 +178,8 @@ rt { font-size: 10px; font-weight: 800; color: #475569; }
     box-shadow: 0 2px 0px #b45309, 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* 注意書き */
-.notice-p {
-    font-size: 11px;
-    font-weight: 700;
-    color: #64748b;
-    margin-top: 6px;
-}
+.notice-p { font-size: 11px; font-weight: 700; color: #64748b; margin-top: 6px; }
 
-/* フッター */
 footer {
     font-size: 12px;
     color: #ffffff;

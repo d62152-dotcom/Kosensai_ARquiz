@@ -1,69 +1,59 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>クイズ2｜海洋堂ARクイズラリー</title>
-  <link rel="stylesheet" href="quiz2.css">
-  
-  <!-- 角丸の見やすいフォント読み込み -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800;900&display=swap" rel="stylesheet">
-
-
-  <!-- kuromoji CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/kuromoji@0.1.2/build/kuromoji.js"></script>
-  <script src="quiz2.js" defer></script>
+    <meta charset="utf-8">
+    <title>クイズ 2｜高知高専 星瞬祭 ARクイズラリー</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: var(--ksfn-blue); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 16px; }
+        .quiz-container { background: #ffffff; border-radius: 24px; padding: 20px; width: 100%; max-width: 420px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center; }
+        .chara-img { width: 120px; height: 120px; object-fit: contain; margin: 8px auto; display: block; }
+        .question-title { font-size: 18px; font-weight: 900; color: var(--ksfn-dark-blue); margin-bottom: 16px; line-height: 1.4; }
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+        .option-btn { background: #f8fafc; border: 3px solid #cbd5e1; border-radius: 16px; padding: 16px; font-size: 20px; font-weight: 900; color: var(--text-color); cursor: pointer; transition: all 0.15s ease; text-align: center; }
+        .option-btn:active { transform: scale(0.98); background: #e2e8f0; }
+        .feedback { display: none; font-size: 18px; font-weight: 900; margin-top: 12px; padding: 10px; border-radius: 12px; }
+        .correct { background-color: #dcfce7; color: #15803d; border: 2px solid #22c55e; }
+        .incorrect { background-color: #fee2e2; color: #b91c1c; border: 2px solid #ef4444; }
+    </style>
 </head>
 <body>
-  <div id="outer">
-    <main class="quiz-card" id="container">
-      
-      <!-- ヘッダー情報（問題番号） -->
-      <div class="quiz-header">
-        <div class="quiz-info">もんだい Q<span id="total-questions">2</span></div>
-      </div>
-
-
-      <!-- クイズ出題エリア -->
-      <div class="quiz-container" id="quiz-container">
-        <div class="question-number" id="question-number"></div>
-        <div class="question" id="question"></div>
-        <div class="grid-container" id="choices-container"></div>
-      </div>
-
-
-      <!-- 回答結果表示エリア -->
-      <div class="result-section" id="answer-section">
-        <h2>
-          <ruby>回答<rt>かいとう</rt></ruby><ruby>結果<rt>けっか</rt></ruby>
-        </h2>
-        <p id="answer-result"></p>
-        <div id="restart-quiz" class="action-btn" onclick="endCord()">
-          ARに<ruby>戻<rt>もど</rt></ruby>る
+    <div class="quiz-container">
+        <div class="badge" style="background:var(--ksfn-dark-blue); color:#fff; padding:4px 12px; border-radius:12px; font-weight:900; font-size:12px; display:inline-block;">ダイ2モン</div>
+        <img src="../../images/marker/karanchan_c_004_r_350.jpg" alt="カランちゃん" class="chara-img">
+        <h2 class="question-title"><ruby>高知高専<rt>こうちこうせん</rt></ruby>には いくつのコースがあるかな？</h2>
+        
+        <div class="options-grid">
+            <button class="option-btn" onclick="checkAnswer(false)">3つ</button>
+            <button class="option-btn" onclick="checkAnswer(true)">5つ</button>
+            <button class="option-btn" onclick="checkAnswer(false)">7つ</button>
+            <button class="option-btn" onclick="checkAnswer(false)">10こ</button>
         </div>
-      </div>
 
+        <div id="feedback" class="feedback"></div>
+    </div>
 
-      <!-- 最終結果表示エリア -->
-      <div id="final-result" class="final-section">
-        <h2>
-          <ruby>最終<rt>さいしゅう</rt></ruby><ruby>結果<rt>けっか</rt></ruby>
-        </h2>
-        <p id="score"></p>
-        <div class="action-btn" onclick="endCord()">
-          ARに<ruby>戻<rt>もdo</rt></ruby>る
-        </div>
-      </div>
-
-
-    </main>
-
-
-    <footer>
-      <p>© 海洋堂SpaceFactoryなんこく / 高知高専</p>
-    </footer>
-  </div>
+    <script>
+        function checkAnswer(isCorrect) {
+            const fb = document.getElementById('feedback');
+            if (isCorrect) {
+                fb.className = 'feedback correct';
+                fb.innerHTML = '⭕ せいかい！ 5つのコースがあるよ！';
+                fb.style.display = 'block';
+                let bit = Number(localStorage.getItem('bit')) || 0;
+                bit |= (1 << 1);
+                localStorage.setItem('bit', bit);
+                setTimeout(() => { window.location.href = '../../newquiz.html'; }, 1200);
+            } else {
+                fb.className = 'feedback incorrect';
+                fb.innerHTML = '❌ ざんねん！ もういちど選んでね！';
+                fb.style.display = 'block';
+            }
+        }
+    </script>
 </body>
 </html>
