@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>クイズ2｜海洋堂ARクイズラリー</title>
+  <link rel="stylesheet" href="quiz2.css">
+  
+  <!-- 角丸の見やすいフォント読み込み -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800;900&display=swap" rel="stylesheet">
+
+
+  <!-- kuromoji CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/kuromoji@0.1.2/build/kuromoji.js"></script>
+  <script src="quiz2.js" defer></script>
+</head>
+<body>
+  <div id="outer">
+    <main class="quiz-card" id="container">
+      
+      <!-- ヘッダー情報（問題番号） -->
+      <div class="quiz-header">
+        <div class="quiz-info">もんだい Q<span id="total-questions">2</span></div>
+      </div>
+
+
+      <!-- クイズ出題エリア -->
+      <div class="quiz-container" id="quiz-container">
+        <div class="question-number" id="question-number"></div>
+        <div class="question" id="question"></div>
+        <div class="grid-container" id="choices-container"></div>
+      </div>
+
+
+      <!-- 回答結果表示エリア -->
+      <div class="result-section" id="answer-section">
+        <h2>
+          <ruby>回答<rt>かいとう</rt></ruby><ruby>結果<rt>けっか</rt></ruby>
+        </h2>
+        <p id="answer-result"></p>
+        <div id="restart-quiz" class="action-btn" onclick="endCord()">
+          ARに<ruby>戻<rt>もど</rt></ruby>る
+        </div>
+      </div>
+
+
+      <!-- 最終結果表示エリア -->
+      <div id="final-result" class="final-section">
+        <h2>
+          <ruby>最終<rt>さいしゅう</rt></ruby><ruby>結果<rt>けっか</rt></ruby>
+        </h2>
+        <p id="score"></p>
+        <div class="action-btn" onclick="endCord()">
+          ARに<ruby>戻<rt>もdo</rt></ruby>る
+        </div>
+      </div>
+
+
+    </main>
+
+
+    <footer>
+      <p>© 海洋堂SpaceFactoryなんこく / 高知高専</p>
+    </footer>
+  </div>
+</body>
+</html>
