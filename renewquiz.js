@@ -88,10 +88,10 @@ setupMarkerListener('#marker04', 4, './Quiz/4/quiz4.html');
 
 function preloadAssets() {
   const imagesToCache = [
-    './images/marker/kochiyan_c_002_r_300.png',
-    './images/marker/karanchan_c_004_r_350.jpg',
-    './images/marker/kochiyan_c_008_r_300.jpg',
-    './images/marker/karanchan_c_009_r_350.jpg'
+    './images/marker/pattern-kochiyan_c_002_r_300.png',
+    './images/marker/pattern-karanchan_c_004_r_350.png',
+    './images/marker/pattern-kochiyan_c_008_r_300.png',
+    './images/marker/pattern-karanchan_c_009_r_350.png'
   ];
 
   imagesToCache.forEach(src => {

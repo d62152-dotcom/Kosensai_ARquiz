@@ -1,33 +1,34 @@
 (function(){
+let tokenizer;
+
 function initKuromojiAndQuiz() {
   kuromoji.builder({ dicPath: "../../dict/" }).build(function(err, t) {
     if (err) {
       console.error(err);
+      loadQuestion();
       return;
     }
     tokenizer = t;
     console.log("Kuromoji ready ✅");
-
-    // Kuromoji 初期化後にクイズを開始
     loadQuestion();
   });
 }
-// ルビ付け関数
 
+// 高専仕様クイズデータ 4
 const quizData = [
-	{
-      question: "[ありがとう駅のセンベちゃん]センベちゃんはどこの駅に住んでいるかな？",
-      choices: [
-        { text: "こうち駅" },
-        { text: "ありがとう駅" },
-        { text: "しょうが駅" },
-        { text: "ごめん駅" },
-      ],
-      correct: 1,
-    },
-	// 他の問題もここに追加
+  {
+    question: "高知高専の文化祭の なまえはなにかな？",
+    choices: [
+      { text: "星瞬祭（せいしゅんさい）" },
+      { text: "清流祭（せいりゅうさい）" },
+      { text: "黒潮祭（くろしおさい）" },
+      { text: "高専祭（こうせんさい）" },
+    ],
+    correct: 0, // 正解：「星瞬祭」
+  },
 ];
-let currentQuiz = quizData; // 全問題をそのまま使用
+
+let currentQuiz = quizData;
 let currentQuestion = 0;
 let Charscore = localStorage.getItem("score") || 0;
 let score = Number(Charscore);
@@ -37,92 +38,80 @@ let Right = 0;
 let QuizNumber = [0];
 let i = 0;
 const Questions = 1;
-const totalQuestion = localStorage.getItem("totalQuestion");
-// 初期化
+const totalQuestion = localStorage.getItem("totalQuestion") || 4;
 
-// 問題と選択肢を表示
 function loadQuestion() {
-  document.getElementById("quiz-container").style.display = "block";
-  document.getElementById("answer-section").style.display = "none";
-  document.getElementById("final-result").style.display = "none";
+  if (document.getElementById("quiz-container")) document.getElementById("quiz-container").style.display = "block";
+  if (document.getElementById("answer-section")) document.getElementById("answer-section").style.display = "none";
+  if (document.getElementById("final-result")) document.getElementById("final-result").style.display = "none";
 
   const questionData = quizData[i];
 
-  // 問題文にルビを付けて表示
   document.getElementById("question").innerHTML = addRuby(questionData.question);
 
-  // 選択肢表示
   const choicesContainer = document.getElementById("choices-container");
   choicesContainer.innerHTML = "";
   questionData.choices.forEach((choice, index) => {
     const choiceDiv = document.createElement("div");
     choiceDiv.classList.add("choice");
-    // ここを変更：textContent -> innerHTML にして addRuby() の結果を入れる
     choiceDiv.innerHTML = `${index + 1}. ${addRuby(choice.text)}`;
     choiceDiv.onclick = () => checkAnswer(index, questionData);
     choicesContainer.appendChild(choiceDiv);
   });
 }
 
-
-// 答えを確認
 function checkAnswer(selected, questionData) {
-	document.getElementById("quiz-container").style.display = "none";
-	document.getElementById("answer-section").style.display = "block";
+  document.getElementById("quiz-container").style.display = "none";
+  document.getElementById("answer-section").style.display = "block";
 
-	const resultText = document.getElementById("answer-result");
-	const choicesContainer = document.getElementById("choices-container");
-	choicesContainer.innerHTML = ""; // クリアして選択肢を再描画
+  const resultText = document.getElementById("answer-result");
+  const choicesContainer = document.getElementById("choices-container");
+  choicesContainer.innerHTML = "";
 
-	// 正解・不正解のメッセージ表示
-	if (selected === questionData.correct) {
-		resultText.innerHTML = "<span class='correct'> <ruby>正解<rt>せいかい</rt></ruby>！</span>";
-		//score++;
-		Right++;
-		//localStorage.setItem("score", score);
+  if (selected === questionData.correct) {
+    resultText.innerHTML = "<span class='correct'> <ruby>正解<rt>せいかい</rt></ruby>！</span>";
+    Right++;
+  } else {
+    resultText.innerHTML = "<span class='wrong'><ruby>不正解<rt>ふせいかい</rt></ruby>です。</span>";
+    localStorage.setItem("score", score);
+  }
 
-	} else {
-		resultText.innerHTML = "<span class='wrong'><ruby>不正解<rt>ふせいかい</rt></ruby>です。</span>";
-		localStorage.setItem("score", score);
-	}
-	//currentQuestion++;
-	i++;
-	// 最終問題かどうかのチェック
-	if (i === Questions) {
-		if(Right === Questions){
-			AnserQuestion++;
-			localStorage.setItem("AnserQuestion",AnserQuestion);
-			let test1 = localStorage.getItem("bit") || 0;
-			let bit = Number(test1);
-			bit = bit+8;
-			localStorage.setItem("bit", bit);
-		}
-		setTimeout(() =>{
+  i++;
+
+  if (i === Questions) {
+    if(Right === Questions){
+      AnserQuestion++;
+      localStorage.setItem("AnserQuestion", AnserQuestion);
+      let test1 = localStorage.getItem("bit") || 0;
+      let bit = Number(test1);
+      bit = bit + 8; // 4問目のビット加算 (+8)
+      localStorage.setItem("bit", bit);
+    }
+    setTimeout(() => {
       endCord();
-		},3000);
-	}
+    }, 2000);
+  }
 }
 
-// 次の問題へ
 function nextQuestion() {
-	if (i < Questions) {
-		loadQuestion();
-		document.getElementById("container").scrollIntoView({ behavior: "smooth" }); // containerにスクロール
-
-	} else {
-		showResult();
-	}
+  if (i < Questions) {
+    loadQuestion();
+    document.getElementById("container")?.scrollIntoView({ behavior: "smooth" });
+  } else {
+    showResult();
+  }
 }
 
-let isSending = false; // 送信中フラグ
+let isSending = false;
 
 function endCord() {
-  if (isSending) return; // すでに送信中なら何もしない
-  isSending = true;      // 送信開始！
+  if (isSending) return;
+  isSending = true;
 
   const gasUrl = "https://script.google.com/macros/s/AKfycby-9lUW73-r32G7pmNsPAkSIz6yR6bDBGk3S5HNbnXuvWbWJcjm97tMQKdXlF8sYXN3/exec";
 
-  if (AnserQuestion == totalQuestion) {
+  let currentBit = Number(localStorage.getItem("bit")) || 0;
+  if (currentBit >= 15 || AnserQuestion == totalQuestion) {
     fetch(gasUrl).finally(() => {
       window.location.href = '../../clear.html';
     });
@@ -131,30 +120,27 @@ function endCord() {
   }
 }
 
-//最終結果への遷移関数
-// 結果を表示
 function showResult() {
-	document.getElementById("answer-section").style.display = "none";
-	document.getElementById("final-result").style.display = "block";
+  if (document.getElementById("answer-section")) document.getElementById("answer-section").style.display = "none";
+  if (document.getElementById("final-result")) document.getElementById("final-result").style.display = "block";
 
-	const percentage = (Right / Questions) * 100;
-	document.getElementById("score").textContent = `正解数: ${Right}/${Questions} (${percentage.toFixed(2)}%)`;
-			setTimeout(() =>{
-			const button = document.getElementById("restart-quiz");
-			button.click();
-		},5000);
+  const percentage = (Right / Questions) * 100;
+  if (document.getElementById("score")) {
+    document.getElementById("score").textContent = `正解数: ${Right}/${Questions} (${percentage.toFixed(2)}%)`;
+  }
+  setTimeout(() => {
+    document.getElementById("restart-quiz")?.click();
+  }, 5000);
 }
-
 
 window.onload = () => {
   initKuromojiAndQuiz();
 };
-// ---------- 補助: カタカナ -> ひらがな ----------
+
 function katakanaToHiragana(str) {
   if (!str) return "";
   return Array.from(str).map(ch => {
     const code = ch.charCodeAt(0);
-    // カタカナの範囲内であればひらがなへ変換
     if (code >= 0x30A1 && code <= 0x30F3) {
       return String.fromCharCode(code - 0x60);
     }
@@ -162,9 +148,8 @@ function katakanaToHiragana(str) {
   }).join('');
 }
 
-// ---------- ルビ付け関数（漢字が含まれる場合のみ） ----------
 function addRuby(text) {
-  if (!tokenizer) return text;
+  if (!tokenizer) return escapeHtml(text);
 
   const tokens = tokenizer.tokenize(text);
 
@@ -172,37 +157,31 @@ function addRuby(text) {
     const surface = token.surface_form;
     const reading = token.reading;
 
-    // 漢字が含まれているかチェック
     if (/[一-龠々]/.test(surface) && reading) {
       let hira = katakanaToHiragana(reading);
-      
-      // 送り仮名（単語の終わりの方のひらがな）をルビの外に出す処理
       let s = surface;
       let r = hira;
-      
-      // 末尾から1文字ずつ比較し、共通するひらがながあれば切り離す
+
       while (
         s.length > 1 && 
         r.length > 1 && 
         s.slice(-1) === r.slice(-1) && 
-        !/[一-龠々]/.test(s.slice(-1)) // 末尾が漢字じゃない場合のみ
+        !/[一-龠々]/.test(s.slice(-1))
       ) {
         s = s.slice(0, -1);
         r = r.slice(0, -1);
       }
 
-      // 共通部分を切り離した後の残り（漢字部分）にだけルビを振る
       const suffix = surface.slice(s.length);
       return `<ruby>${escapeHtml(s)}<rt>${escapeHtml(r)}</rt></ruby>${escapeHtml(suffix)}`;
     } else {
-      // 漢字がない場合はそのまま
       return escapeHtml(surface);
     }
   }).join('');
 }
 
-// 必要ならHTMLエスケープ（トークンに <> 等が入る可能性を防ぐ）
 function escapeHtml(s) {
+  if (!s) return "";
   return s.replace(/[&<>"']/g, c => ({
     '&': '&amp;',
     '<': '&lt;',
@@ -211,6 +190,7 @@ function escapeHtml(s) {
     "'": '&#39;'
   })[c]);
 }
+
 window.nextQuestion = nextQuestion;
 window.endCord = endCord;
 })();
