@@ -6,12 +6,15 @@ if (!sessionStorage.getItem('initialized')) {
   sessionStorage.setItem('initialized', 'true');
 }
 
+
 let bit = Number(localStorage.getItem("bit")) || 0;
 const totalQuestion = 4;
+
 
 function checkanswered(qn, currentBit) {
   return (currentBit & (1 << (qn - 1))) ? 1 : 0;
 }
+
 
 function countAnsweredQuestions(currentBit) {
   let count = 0;
@@ -23,14 +26,17 @@ function countAnsweredQuestions(currentBit) {
   return count;
 }
 
+
 function updateUI() {
   const currentBit = Number(localStorage.getItem("bit")) || 0;
   const answeredCount = countAnsweredQuestions(currentBit);
+
 
   const answeredValueElem = document.getElementById('answeredValue');
   if (answeredValueElem) {
     answeredValueElem.textContent = `${answeredCount} / ${totalQuestion}`;
   }
+
 
   for (let i = 1; i <= totalQuestion; i++) {
     const itemElem = document.getElementById(`target-item-${i}`);
@@ -45,12 +51,14 @@ function updateUI() {
     }
   }
 
+
   if (answeredCount >= totalQuestion) {
     setTimeout(() => {
       window.location.href = './clear.html';
     }, 800);
   }
 }
+
 
 let messageTimer = null;
 function showMessage(text) {
@@ -59,6 +67,7 @@ function showMessage(text) {
     msgElem.textContent = text;
     msgElem.style.display = 'block';
 
+
     if (messageTimer) clearTimeout(messageTimer);
     messageTimer = setTimeout(() => {
       msgElem.style.display = 'none';
@@ -66,12 +75,21 @@ function showMessage(text) {
   }
 }
 
+
+// マーカー登録関数
 function setupMarkerListener(markerId, quizNumber, redirectUrl) {
   const marker = document.querySelector(markerId);
-  if (!marker) return;
+  if (!marker) {
+    console.warn(`[AR.js Debug] マーカーが見つかりません: ${markerId}`);
+    return;
+  }
 
+
+  // 既存イベントの二重登録防止とイベント発火の確認
   marker.addEventListener('markerFound', () => {
+    console.log(`[AR.js Debug] マーカー検出成功! -> ID: ${markerId}`);
     const currentBit = Number(localStorage.getItem("bit")) || 0;
+
 
     if (!checkanswered(quizNumber, currentBit)) {
       window.location.href = redirectUrl;
@@ -81,10 +99,14 @@ function setupMarkerListener(markerId, quizNumber, redirectUrl) {
   });
 }
 
-setupMarkerListener('#marker01', 1, './Quiz/1/quiz1.html');
-setupMarkerListener('#marker02', 2, './Quiz/2/quiz2.html');
-setupMarkerListener('#marker03', 3, './Quiz/3/quiz3.html');
-setupMarkerListener('#marker04', 4, './Quiz/4/quiz4.html');
+
+function initAllMarkers() {
+  setupMarkerListener('#marker01', 1, './Quiz/1/quiz1.html');
+  setupMarkerListener('#marker02', 2, './Quiz/2/quiz2.html');
+  setupMarkerListener('#marker03', 3, './Quiz/3/quiz3.html');
+  setupMarkerListener('#marker04', 4, './Quiz/4/quiz4.html');
+}
+
 
 function preloadAssets() {
   const imagesToCache = [
@@ -94,13 +116,23 @@ function preloadAssets() {
     './images/marker/pattern-karanchan_c_009_r_350.png'
   ];
 
+
   imagesToCache.forEach(src => {
     const img = new Image();
     img.src = src;
   });
 }
 
+
+// DOM読み込み完了後に確実にマーカーリスナーを紐づける
 window.addEventListener('DOMContentLoaded', () => {
   preloadAssets();
   updateUI();
+  initAllMarkers();
+});
+
+
+// A-Frameシーンロード完了時にも再実行（確実に登録するため）
+window.addEventListener('load', () => {
+  initAllMarkers();
 });
